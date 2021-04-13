@@ -6,9 +6,16 @@ from datetime import datetime, timedelta
 
 exercises = [
     ("b",   "bench_press",      "Bench press"),
+    ("d",   "deadlift",         "Deadlift"),
+    ("s",   "squat",            "Squat"),
     ("i",   "incline_press",    "Incline press"),
-    ("s",   "shoulder_press",   "Shoulder press"),
-    ("d",   "dumbbell_press",   "Dumbbell press"),
+    ("sp",  "shoulder_press",   "Shoulder press"),
+    ("dp",  "dumbbell_press",   "Dumbbell press"),
+    ("rd",  "romanian_deadlift", "Romanian deadlift"),
+    ("p",   "pullups",          "Pullups"),
+    ("h",   "hipthrusts",       "Hipthrusts"),
+    ("ngp", "Narrow-grip bench", "Narrow-grip bench press"),
+    ("bc",  "bicep_curls",      "Bicep curls"),
     ("r",   "barbell_rows",     "Rows"),
 ]
 
@@ -63,24 +70,42 @@ def entry():
     exercise = keymap[exercise]
     print("%s selected" % descs[exercise])
 
+    i = 1
     rows = []
+    weight = None
     while True:
         print("[f] finish [c] cancel")
-        i = 1
-        reps = input("Set %s reps> " % i)
 
+        weight_new = input("Weight (%s)> " % weight)
+        if weight_new == "c":
+            return CONTINUE
+        elif weight_new == "f":
+            save_exercise(exercise, rows)
+            return CONTINUE
+
+        reps = input("Set %s reps> " % i)
         if reps == "c":
             return CONTINUE
         elif reps == "f":
             save_exercise(exercise, rows)
             return CONTINUE
 
+        if weight_new:
+            weight = weight_new
+
+        try:
+            weight = int(weight)
+            reps = int(reps)
+        except ValueError:
+            print("Invalid input. Retry again.")
+            continue
+
         end = time.time()
         elapsed = end - start
         print("%s elapsed." % format_elapsed_time(elapsed))
         start = end
 
-        rows.append({"reps": reps, "rest": elapsed})
+        rows.append({"reps": reps, "weight": weight, "rest": elapsed})
         i += 1
 
 while True:
