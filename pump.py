@@ -2,6 +2,7 @@ import json
 import os
 import pprint
 import sys
+import tabulate
 import time
 from datetime import datetime, timedelta
 
@@ -10,9 +11,12 @@ exercises = [
     ("d",   "deadlift",         "Deadlift"),
     ("s",   "squat",            "Squat"),
     ("i",   "incline_press",    "Incline press"),
-    ("sp",  "shoulder_press",   "Shoulder press"),
+    ("sp",  "bb_shoulder_press", "Shoulder press"),
+    ("mp",  "military_press",   "Military press"),
+    ("lr",  "lat_raises",       "Lat raises"),
     ("dp",  "dumbbell_press",   "Dumbbell press"),
     ("rd",  "romanian_deadlift", "Romanian deadlift"),
+    ("ng",  "narrow_grip_bench", "Narrow grip bench press"),
     ("p",   "pullups",          "Pullups"),
     ("h",   "hipthrusts",       "Hipthrusts"),
     ("ngp", "Narrow-grip bench", "Narrow-grip bench press"),
@@ -59,8 +63,16 @@ start = time.time()
 def entry():
     global start
 
-    for key, tag in keymap.items():
-        print("%s [%s]" % (descs[tag], key))
+    table = []
+    current_row = []
+    for i, (key, tag) in enumerate(keymap.items()):
+        current_row.extend([descs[tag], key])
+        if i % 2 == 1:
+            table.append(current_row)
+            current_row = []
+        #print("%s [%s]" % (descs[tag], key))
+    print(tabulate.tabulate(table))
+
     exercise = input("> ")
     if exercise == "x":
         print("Exiting")
