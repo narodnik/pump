@@ -19,7 +19,6 @@ exercises = [
     ("ng",  "narrow_grip_bench", "Narrow grip bench press"),
     ("p",   "pullups",          "Pullups"),
     ("h",   "hipthrusts",       "Hipthrusts"),
-    ("ngp", "Narrow-grip bench", "Narrow-grip bench press"),
     ("bc",  "bicep_curls",      "Bicep curls"),
     ("r",   "barbell_rows",     "Rows"),
 ]
@@ -114,7 +113,8 @@ def entry():
             weight = weight_new
 
         try:
-            weight = float(weight)
+            if weight is not None:
+                weight = float(weight)
             reps = float(reps)
         except ValueError:
             print("Invalid input. Retry again.")
