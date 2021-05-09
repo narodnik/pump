@@ -107,6 +107,7 @@ def entry():
             return CONTINUE
         elif weight_new == "r":
             rows.pop()
+            i -= 1
             continue
 
         if weight_new:
