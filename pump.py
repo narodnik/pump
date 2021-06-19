@@ -21,6 +21,8 @@ exercises = [
     ("h",   "hipthrusts",       "Hipthrusts"),
     ("bc",  "bicep_curls",      "Bicep curls"),
     ("r",   "barbell_rows",     "Rows"),
+    ("l",   "lunges",           "Lunges"),
+    ("c",   "",                 "Custom"),
 ]
 
 def build_maps():
@@ -77,11 +79,14 @@ def entry():
         print("Exiting")
         save_session()
         return EXIT
+    elif exercise == "c":
+        exercise = input("Custom exercise> ")
     elif exercise not in keymap:
         print("Invalid exercise.")
         return CONTINUE
-    exercise = keymap[exercise]
-    print("%s selected" % descs[exercise])
+    else:
+        exercise = keymap[exercise]
+        print("%s selected" % descs[exercise])
 
     i = 1
     rows = []
