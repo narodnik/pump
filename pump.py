@@ -55,7 +55,9 @@ def save_session():
     except FileExistsError:
         pass
     now = datetime.now()
-    filename = "%s/workout_%02d%02d.wkt" % (dirname, now.day, now.month)
+    # We only want the last 2 digits
+    year = str(now.year)[2:]
+    filename = "%s/workout_%02d%02d%s.wkt" % (dirname, now.day, now.month, year)
     with open(filename, "w") as fd:
         json.dump(session, fd)
 
