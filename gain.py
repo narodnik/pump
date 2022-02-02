@@ -2,25 +2,27 @@ import json
 import os
 import pprint
 import sys
+import tabulate
+import datetime
 
-def main(argv):
-    if len(argv) != 3:
-        print("gain DIR EXERCISE")
-        return -1
+def get_month_name(month_number):
+    month = datetime.date(2022, month_number, 1).strftime('%b')
+    return month
 
-    wdir = argv[1]
-    exercise = argv[2]
-
+def load_exercise_data(exercise):
     workouts = []
 
-    for filename in os.listdir(wdir):
-        print(f"{filename}")
+    for filename in os.listdir("workouts"):
+        # Skip random files from syncthing
+        if not filename.startswith("workout_"):
+            continue
 
-        date = filename[len("workout_"):][:4]
-        day, month = int(date[:2]), int(date[2:])
-        index = month * 100 + day
+        date = filename[len("workout_"):][:6]
+        day, month, year = int(date[:2]), int(date[2:4]), int(date[4:])
+        index = year * 10000 + month * 100 + day
+        date = (day, month, year)
 
-        with open(f"{wdir}/{filename}") as fd:
+        with open(f"workouts/{filename}") as fd:
             info = json.load(fd)
         for section in info:
             if section["exercise"] == exercise:
@@ -28,7 +30,38 @@ def main(argv):
                 #pprint.pprint(section)
 
     workouts.sort(key=lambda w: w[0])
-    pprint.pprint(workouts)
+    return workouts
+
+def main(argv):
+    if len(argv) != 2:
+        print("gain EXERCISE")
+        return -1
+
+    exercise = argv[1]
+    workouts = load_exercise_data(exercise)
+
+    table = []
+    for _, date, data in workouts:
+        day, month, year = date
+        month = get_month_name(month)
+        date = "%02d %s %s" % (day, month, year)
+
+        row = [date]
+
+        # Want to show interset reps
+        for i, set in enumerate(data["workout"]):
+            reps = set["reps"]
+            rest = set["rest"]
+            weight = set["weight"]
+            row.extend([weight, reps])
+
+        table.append(row)
+
+    headers = ["Date"]
+    for i in range(1, 8):
+        headers.extend(["Weight %i" % i, "Reps"])
+
+    print(tabulate.tabulate(table, headers=headers))
 
     return 0
 
