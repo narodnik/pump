@@ -4,6 +4,7 @@ import pprint
 import sys
 import tabulate
 import datetime
+from colorama import Fore, Back, Style
 
 def get_month_name(month_number):
     month = datetime.date(2022, month_number, 1).strftime('%b')
@@ -50,16 +51,21 @@ def main(argv):
 
         # Want to show interset reps
         for i, set in enumerate(data["workout"]):
+            if i > 0:
+                rest_time = int(set["rest"] / 60)
+                rest_time = Style.DIM + str(rest_time) + Style.RESET_ALL
+                row.append(rest_time)
             reps = set["reps"]
             rest = set["rest"]
             weight = set["weight"]
+            weight = Fore.GREEN + str(weight) + Style.RESET_ALL
             row.extend([weight, reps])
 
         table.append(row)
 
     headers = ["Date"]
     for i in range(1, 8):
-        headers.extend(["Weight %i" % i, "Reps"])
+        headers.extend(["Weight %i" % i, "Reps", "Rest"])
 
     print(tabulate.tabulate(table, headers=headers))
 
