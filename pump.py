@@ -7,28 +7,91 @@ import time
 from datetime import datetime, timedelta
 
 exercises = [
-    ("b",   "bench_press",      "Bench press"),
-    ("d",   "deadlift",         "Deadlift"),
-    ("s",   "squat",            "Squat"),
-    ("i",   "incline_press",    "Incline press"),
-    ("sp",  "bb_shoulder_press", "Shoulder press"),
-    ("mp",  "military_press",   "Military press"),
-    ("lr",  "lat_raises",       "Lat raises"),
-    ("dp",  "dumbbell_press",   "Dumbbell press"),
-    ("rd",  "romanian_deadlift", "Romanian deadlift"),
-    ("ng",  "narrow_grip_bench", "Narrow grip bench press"),
-    ("p",   "pullups",          "Pullups"),
-    ("h",   "hipthrusts",       "Hipthrusts"),
-    ("bc",  "bicep_curls",      "Bicep curls"),
-    ("r",   "barbell_rows",     "Rows"),
-    ("l",   "lunges",           "Lunges"),
-    ("c",   "",                 "Custom"),
+    [
+        "Chest", [
+
+        ("b",   "bb_bench",             "Bench press"),
+        ("db",  "db_bench",             "Db bench press"),
+        ("i",   "bb_incline_bench",     "Incline bench"),
+        ("ib",  "db_incline_bench",     "Db incline bench"),
+        ("cf",  "cable_fly",            "Cable fly"),
+        ("lcf", "cable_low_fly",        "Low cable fly"),
+    ]],
+
+    [
+        "Back", [
+
+        ("d",   "deadlift",             "Deadlift"),
+        ("p",   "pullup",               "Pullup"),
+        ("r",   "bb_row",               "Row"),
+        ("dr",  "db_row",               "Db row"),
+        ("lp",  "lat_pulldown",         "Lat pulldown"),
+        ("cp",  "cable_pulldown",       "Cable pulldown"),
+    ]],
+
+    [
+        "Shoulders", [
+
+        ("sp",  "bb_press",             "Shoulder press"),
+        ("dp",  "db_press",             "Db shoulder press"),
+        ("mp",  "bb_military_press",    "Military press"),
+        ("fr",  "front_raise",          "Front raise"),
+        ("lr",  "lat_raise",            "Lat raise"),
+        ("clr", "cable_lat_raise",      "Cable lateral raise"),
+    ]],
+
+    [
+        "Legs", [
+
+        ("s",   "squat",                "Squat"),
+        ("l",   "lunge",                "Lunge"),
+        ("ss",  "split_squat",          "Split squat"),
+        ("bx",  "box_squat",            "Box squat"),
+        ("gm",  "good_morning",         "Good morning"),
+        ("rdl", "romanian_deadlift",    "Romanian deadlift"),
+        ("asl", "alt_leg_deadlift",     "Alt leg deadlift"),
+        ("sol", "soleo",                "Soleo"),
+    ]],
+
+    [
+        "Biceps", [
+
+        ("c",   "bb_curl",              "Curl"),
+        ("cc",  "cable_curl",           "Cable curl"),
+        ("dc",  "db_curl",              "Db curl"),
+        ("hc",  "hammer_curl",          "Hammer curl"),
+        ("pc",  "preacher_curl",        "Preacher curl"),
+        ("ic",  "incline_curl",         "Incline curl"),
+    ]],
+
+    [
+        "Triceps", [
+
+        ("sk",  "skullcrusher",         "Skullcrusher"),
+        ("p",   "cable_pushdown",       "Cable pushdown"),
+        ("o",   "cable_overhead_ext",   "Cable overhead ext"),
+        ("dip", "dips",                 "Dips"),
+    ]],
+
+    [
+        "Core", [
+
+        ("hr",  "hanging_raise",        "Hanging raise"),
+        ("ws",  "weighted_situp",       "Weighted situp"),
+    ]],
+    # ("c",   "",                 "Custom"),
 ]
+
+def get_all_exercises():
+    all_exercises = []
+    for body_part, exer in exercises:
+        all_exercises.extend(exer)
+    return all_exercises
 
 def build_maps():
     keymap = {}
     descs = {}
-    for key, exercise_tag, exercise_desc in exercises:
+    for key, exercise_tag, exercise_desc in get_all_exercises():
         keymap[key] = exercise_tag
         descs[exercise_tag] = exercise_desc
     return keymap, descs
@@ -68,12 +131,16 @@ def entry():
 
     table = []
     current_row = []
-    for i, (key, tag) in enumerate(keymap.items()):
-        current_row.extend([descs[tag], key])
-        if i % 2 == 1:
-            table.append(current_row)
-            current_row = []
-        #print("%s [%s]" % (descs[tag], key))
+    idx = 0
+    for body_part, exers in exercises:
+        if idx > 0:
+            table.append([])
+        for key, _, name in exers:
+            current_row.extend([name, key])
+            if idx % 2 == 1:
+                table.append(current_row)
+                current_row = []
+            idx += 1
     print(tabulate.tabulate(table))
 
     exercise = input("> ")
