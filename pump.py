@@ -6,6 +6,8 @@ import tabulate
 import time
 from datetime import datetime, timedelta
 
+from gain import display_exercise_table
+
 exercises = [
     [
         "Chest", [
@@ -47,7 +49,7 @@ exercises = [
         ("l",   "lunge",                "Lunge"),
         ("ss",  "split_squat",          "Split squat"),
         ("bx",  "box_squat",            "Box squat"),
-        ("gm",  "good_morning",         "Good morning"),
+        ("ht",  "hip_thrust",           "Hip thrust"),
         ("rdl", "romanian_deadlift",    "Romanian deadlift"),
         ("asl", "alt_leg_deadlift",     "Alt leg deadlift"),
         ("sol", "soleo",                "Soleo"),
@@ -56,7 +58,7 @@ exercises = [
     [
         "Biceps", [
 
-        ("c",   "bb_curl",              "Curl"),
+        ("bc",  "bb_curl",              "Curl"),
         ("cc",  "cable_curl",           "Cable curl"),
         ("dc",  "db_curl",              "Db curl"),
         ("hc",  "hammer_curl",          "Hammer curl"),
@@ -142,6 +144,7 @@ def entry():
                 current_row = []
             idx += 1
     print(tabulate.tabulate(table))
+    print("Type 'c' for a custom exercise")
 
     exercise = input("> ")
     if exercise == "x":
@@ -155,6 +158,7 @@ def entry():
         return CONTINUE
     else:
         exercise = keymap[exercise]
+        display_exercise_table(exercise)
         print("%s selected" % descs[exercise])
 
     i = 1

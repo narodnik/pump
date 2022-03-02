@@ -33,12 +33,7 @@ def load_exercise_data(exercise):
     workouts.sort(key=lambda w: w[0])
     return workouts
 
-def main(argv):
-    if len(argv) != 2:
-        print("gain EXERCISE")
-        return -1
-
-    exercise = argv[1]
+def display_exercise_table(exercise):
     workouts = load_exercise_data(exercise)
 
     table = []
@@ -68,6 +63,14 @@ def main(argv):
         headers.extend(["Weight %i" % i, "Reps", "Rest"])
 
     print(tabulate.tabulate(table, headers=headers))
+
+def main(argv):
+    if len(argv) != 2:
+        print("gain EXERCISE")
+        return -1
+
+    exercise = argv[1]
+    display_exercise_table(exercise)
 
     return 0
 
