@@ -161,7 +161,7 @@ def entry():
     else:
         exercise = keymap[exercise]
         display_exercise_table(exercise)
-        print("%s selected" % descs[exercise])
+        print(f"{descs[exercise]} ({exercise}) selected")
 
     i = 1
     rows = []
@@ -177,6 +177,7 @@ def entry():
             return CONTINUE
         elif weight_new == "r":
             rows.pop()
+            i -= 1
             continue
 
         reps = input("Set %s reps> " % i)
