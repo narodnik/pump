@@ -111,7 +111,9 @@ session = []
 dirname = "workouts"
 
 def save_exercise(exercise, rows):
-    session.append({"exercise": exercise, "workout": rows})
+    data = {"exercise": exercise, "workout": rows}
+    session.append(data)
+    print(f"Saved {data}")
 
 def save_session():
     pprint.pprint(session)
