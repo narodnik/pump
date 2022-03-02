@@ -7,6 +7,7 @@ import time
 from datetime import datetime, timedelta
 
 from gain import display_exercise_table
+from reps import show_relative_intensity_table
 
 exercises = [
     [
@@ -166,8 +167,12 @@ def entry():
     i = 1
     rows = []
     weight = None
+    reps = None
     while True:
         print("[f] finish [c] cancel [r] redo")
+
+        if reps is not None and weight is not None:
+            show_relative_intensity_table(weight, reps)
 
         weight_new = input("Weight (%s)> " % weight)
         if weight_new == "c":
