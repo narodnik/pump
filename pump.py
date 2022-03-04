@@ -171,7 +171,7 @@ def entry():
     while True:
         print("[f] finish [c] cancel [r] redo")
 
-        if reps is not None and weight is not None:
+        if isinstance(weight, float) and isintance(reps, float):
             show_relative_intensity_table(weight, reps)
 
         weight_new = input("Weight (%s)> " % weight)
