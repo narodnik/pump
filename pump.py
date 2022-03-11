@@ -25,7 +25,7 @@ exercises = [
         "Back", [
 
         ("d",   "deadlift",             "Deadlift"),
-        ("p",   "pullup",               "Pullup"),
+        ("pp",  "pullup",               "Pullup"),
         ("r",   "bb_row",               "Row"),
         ("dr",  "db_row",               "Db row"),
         ("lp",  "lat_pulldown",         "Lat pulldown"),
@@ -127,7 +127,7 @@ def save_session():
     year = str(now.year)[2:]
     filename = "%s/workout_%02d%02d%s.wkt" % (dirname, now.day, now.month, year)
     with open(filename, "w") as fd:
-        json.dump(session, fd)
+        json.dump(session, fd, indent=4)
 
 start = time.time()
 
