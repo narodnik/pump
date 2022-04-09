@@ -114,10 +114,10 @@ dirname = "workouts"
 def save_exercise(exercise, rows):
     data = {"exercise": exercise, "workout": rows}
     session.append(data)
+    save_session()
     print(f"Saved {data}")
 
 def save_session():
-    pprint.pprint(session)
     try:
         os.mkdir(dirname)
     except FileExistsError:
@@ -152,6 +152,7 @@ def entry():
     exercise = input("> ")
     if exercise == "x":
         print("Exiting")
+        pprint.pprint(session)
         save_session()
         return EXIT
     elif exercise == "c":
