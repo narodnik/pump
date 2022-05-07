@@ -3,7 +3,7 @@ import tabulate
 
 def print_stats(first, bar):
     table = []
-    for i, ratio in enumerate([0.5, 0.7, 0.9]):
+    for i, ratio in enumerate([0.5, 0.7, 0.9, 1.0]):
         weight = ratio * first
         pct = ratio * 100
         table.append((f"{pct:.0f}", weight, (weight - bar) / 2))
