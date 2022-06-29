@@ -28,7 +28,7 @@ exercises = [
         ("pp",  "pullup",               "Pullup"),
         ("r",   "bb_row",               "Row"),
         ("dr",  "db_row",               "Db row"),
-        ("lp",  "lat_pulldown",         "Lat pulldown"),
+        ("po",  "db_pullover",          "Db pullover"),
         ("cp",  "cable_pulldown",       "Cable pulldown"),
     ]],
 
@@ -38,9 +38,9 @@ exercises = [
         ("sp",  "bb_press",             "Shoulder press"),
         ("dp",  "db_press",             "Db shoulder press"),
         ("mp",  "bb_military_press",    "Military press"),
+        ("ap",  "arnold_press",         "Arnold press"),
         ("fr",  "front_raise",          "Front raise"),
         ("lr",  "lat_raise",            "Lat raise"),
-        ("clr", "cable_lat_raise",      "Cable lateral raise"),
     ]],
 
     [
