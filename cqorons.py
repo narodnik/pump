@@ -5,6 +5,10 @@ import tabulate
 from datetime import datetime
 
 meta_foods = {
+    "breakfast": {
+        "oats": 90,
+        "oat-milk": 270,
+    },
     "lunch": {
         "canned-tuna": 150,
         "bread": 100,
@@ -37,6 +41,8 @@ foods = {
     "juice":        (0,     10,     0),
     "choc":         (31,    61,     5),
     "melon":        (0,     9,      0),
+    "oats":         (1.4,   12,     2.4),
+    "oat-milk":     (2,     8.4,    0.8),
 }
 
 dirname = "calories"
