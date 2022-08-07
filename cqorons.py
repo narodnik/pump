@@ -17,7 +17,8 @@ meta_foods = {
     },
     "biglunch": {
         "canned-tuna": 150,
-        "bread": 200,
+        #"smoked-salmon": 90,
+        "bread": 260,
         "egg": 150,
         "oil": 5,
     },
@@ -32,6 +33,7 @@ meta_foods = {
 # fat, carb, protein
 foods = {
     "canned-tuna":  (1,     0,      22),
+    "smoked-salmon": (4,    0,      18),
     "bread":        (5.5,   46,     10),
     "egg":          (11,    1,      13),
     "oil":          (90,    0,      0),
@@ -160,6 +162,24 @@ def choose_food():
         add_food(item, amount, None)
 
 def estimatoor(food, amount):
+    if food in foods:
+        food_estimatoor(food, amount)
+    elif food in meta_foods:
+        total_fat, total_carb, total_protein, total_calorie = 0, 0, 0, 0
+        for food, amount in meta_foods[food].items():
+            fat, carb, prot, cal = food_estimatoor(food, amount)
+            total_fat += fat
+            total_carb += carb
+            total_protein += prot
+            total_calorie += cal
+        print()
+        print(f"Total:")
+        print(f"    Fat:        {total_fat}")
+        print(f"    Carb:       {total_carb}")
+        print(f"    Protein:    {total_protein}")
+        print(f"    Calories:   {total_calorie}")
+
+def food_estimatoor(food, amount):
     fat, carb, protein = foods[food]
     mult = amount / 100
     fat = round(mult*fat)
@@ -171,6 +191,8 @@ def estimatoor(food, amount):
     print(f"    Carb:       {carb}")
     print(f"    Protein:    {protein}")
     print(f"    Calories:   {calorie}")
+
+    return fat, carb, protein, calorie
 
 def main(argv):
     if len(argv) == 2:
