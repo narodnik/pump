@@ -66,6 +66,7 @@ foods = {
     "peach":        (0,     10,     1),
     "tuna":         (1.3,   0,      28),
     "sweet-corn":   (1.2,   19,     3.2),
+    "popcorn":      (0.9,   80,     9),
 }
 
 dirname = "calories"
@@ -108,13 +109,12 @@ def add_meta(meta_name):
 
 def add_food(food, amount, desc):
     fat, carb, protein = foods[food]
-    mult = amount / 100
     append_data({
         "food": food,
         "amount": amount,
-        "fat": fat * mult,
-        "carb": carb * mult,
-        "protein": protein * mult,
+        "fat": fat,
+        "carb": carb,
+        "protein": protein,
     })
 
 def show_summary():
@@ -139,9 +139,10 @@ def show_summary():
     for item in data:
         food = item["food"]
         amount = item["amount"]
-        fat = item["fat"]
-        carb = item["carb"]
-        protein = item["protein"]
+        mult = amount / 100
+        fat = item["fat"] * mult
+        carb = item["carb"] * mult
+        protein = item["protein"] * mult
         calorie = 9*fat + 4*carb + 4*protein
 
         total_fat += fat
@@ -152,7 +153,7 @@ def show_summary():
                       round(protein), round(calorie)))
 
     cal_fat, cal_carb, cal_prot = 9*total_fat, 4*total_carb, 4*total_protein
-    total_calorie = round(cal_fat + cal_carb + cal_prot)
+    total_calorie = cal_fat + cal_carb + cal_prot
     table.append(("", "", "", "", "", ""))
     table.append(("Total:", "",
                   round(total_fat), round(total_carb),
