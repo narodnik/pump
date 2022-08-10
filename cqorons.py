@@ -13,13 +13,15 @@ meta_foods = {
         "canned-tuna": 150,
         "bread": 100,
         "egg": 150,
+        "juice": 50,
         "oil": 5,
     },
     "biglunch": {
         "canned-tuna": 150,
         #"smoked-salmon": 90,
-        "bread": 260,
+        "bread": 160,
         "egg": 150,
+        "juice": 50,
         "oil": 5,
     },
     "dinner": {
@@ -27,7 +29,17 @@ meta_foods = {
         "sweet-potato": 400,
         # 1/20th litre = 50ml
         "juice": 50,
-    }
+        "oil": 5,
+    },
+    # rr: 800
+    # na: 1000
+    "ghormeh-sabzi": {
+        "kidney-beans": 67,
+        "beef": 400,
+        "oil": 5,
+        "rice": 100,
+        "juice": 50,
+    },
 }
 
 # fat, carb, protein
@@ -45,6 +57,15 @@ foods = {
     "melon":        (0,     9,      0),
     "oats":         (1.4,   12,     2.4),
     "oat-milk":     (2,     8.4,    0.8),
+    "dates":        (0.5,   66,     2),
+    "rice":         (0,     78,     8.6),
+    "grapes":       (0,     17,     0),
+    "beef-jerky":   (4,     16,     39),
+    "kidney-beans": (1,     60,     24),
+    "beef":         (15,    0,      26),
+    "peach":        (0,     10,     1),
+    "tuna":         (1.3,   0,      28),
+    "sweet-corn":   (1.2,   19,     3.2),
 }
 
 dirname = "calories"

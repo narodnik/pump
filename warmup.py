@@ -17,11 +17,11 @@ def main(argv):
     first = float(argv[1])
 
     # Olympic bar = 20 kg
-    print("Olympic bar:")
+    print("Olympic bar (=20 kg):")
     print_stats(first, 20)
     print()
 
-    print("Ez curl bar:")
+    print("Ez curl bar (=8.6 kg):")
     print_stats(first, 8.6)
 
     return 0
