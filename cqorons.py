@@ -151,11 +151,16 @@ def show_summary():
         table.append((food, amount, round(fat), round(carb),
                       round(protein), round(calorie)))
 
-    total_calorie = round(9*total_fat + 4*total_carb + 4*total_protein)
+    cal_fat, cal_carb, cal_prot = 9*total_fat, 4*total_carb, 4*total_protein
+    total_calorie = round(cal_fat + cal_carb + cal_prot)
     table.append(("", "", "", "", "", ""))
     table.append(("Total:", "",
                   round(total_fat), round(total_carb),
                   round(total_protein), round(total_calorie)))
+    pct_fat = round(100 * cal_fat / total_calorie)
+    pct_carb = round(100 * cal_carb / total_calorie)
+    pct_prot = round(100 * cal_prot / total_calorie)
+    table.append(("", "", f"{pct_fat}%", f"{pct_carb}%", f"{pct_prot}%", ""))
     print()
     print(tabulate.tabulate(table, headers=table_headers))
 
