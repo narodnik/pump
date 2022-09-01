@@ -70,7 +70,6 @@ def get_amount(food):
 def add_meta(meta_name):
     for food, amount in meta_foods[meta_name].items():
         add_food(food, amount, meta_name)
-    show_summary()
 
 def add_food(food, amount, desc):
     fat, carb, protein = foods[food]
@@ -81,7 +80,6 @@ def add_food(food, amount, desc):
         "carb": carb,
         "protein": protein,
     })
-    show_summary()
 
 def show_summary():
     filename = today_filename()
@@ -192,9 +190,11 @@ def main(argv):
         command = argv[1]
         if command in meta_foods:
             add_meta(command)
+            show_summary()
         elif command in foods:
             amount = get_amount(command)
             add_food(command, amount, None)
+            show_summary()
         elif command == "show":
             show_summary()
         elif command == "list":
