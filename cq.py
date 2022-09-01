@@ -186,7 +186,7 @@ def food_estimatoor(food, amount):
     return fat, carb, protein, calorie
 
 def main(argv):
-    if len(argv) == 0:
+    if len(argv) == 1:
         show_summary()
     elif len(argv) == 2:
         command = argv[1]
@@ -214,8 +214,6 @@ def main(argv):
             print("Invalid amount. Quitting.")
             return -1
         estimatoor(food, amount)
-    else:
-        choose_food()
     return 0
 
 if __name__ == "__main__":
