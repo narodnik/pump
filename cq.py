@@ -70,6 +70,7 @@ def get_amount(food):
 def add_meta(meta_name):
     for food, amount in meta_foods[meta_name].items():
         add_food(food, amount, meta_name)
+    show_summary()
 
 def add_food(food, amount, desc):
     fat, carb, protein = foods[food]
@@ -80,6 +81,7 @@ def add_food(food, amount, desc):
         "carb": carb,
         "protein": protein,
     })
+    show_summary()
 
 def show_summary():
     filename = today_filename()
