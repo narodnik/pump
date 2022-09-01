@@ -186,7 +186,9 @@ def food_estimatoor(food, amount):
     return fat, carb, protein, calorie
 
 def main(argv):
-    if len(argv) == 2:
+    if len(argv) == 0:
+        show_summary()
+    elif len(argv) == 2:
         command = argv[1]
         if command in meta_foods:
             add_meta(command)
