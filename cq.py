@@ -40,6 +40,9 @@ foods = {
     "plum":         (0.3,   11.4,   0.7),
     "mushroom":     (0.1,   4.3,    2.5),
     "pea-protein":  (1.7,   3.2,    85),
+    "strawberry":   (0.3,   7.6,    0.6),
+    "brocolli":     (0.3,   6.6,    2.8),
+    "onion":        (0.1,   9.3,    1),
 }
 
 dirname = "calories"
