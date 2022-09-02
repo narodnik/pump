@@ -35,6 +35,9 @@ foods = {
     "salt-choc":    (44,    33,     6.8),
     "black-currant":(0,     15,     1.4),
     "red-currant":  (0,     13,     1.4),
+    "fig":          (0.3,   19.2,   0.8),
+    "pear":         (0.14,  15.2,   0.36),
+    "plum":         (0.3,   11.4,   0.7),
 }
 
 dirname = "calories"
