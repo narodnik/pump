@@ -39,6 +39,7 @@ foods = {
     "pear":         (0.14,  15.2,   0.36),
     "plum":         (0.3,   11.4,   0.7),
     "mushroom":     (0.1,   4.3,    2.5),
+    "pea-protein":  (1.7,   3.2,    85),
 }
 
 dirname = "calories"
