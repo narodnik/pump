@@ -1,26 +1,33 @@
 meta_foods = {
+    "tea": {
+        "oat-milk": 50,
+    },
     "breakfast": {
-        "oats": 90,
-        "oat-milk": 270,
+        "oats": 60,
+        "oat-milk": 400,
+        "pea-protein": 40,
+        "peach": 100,
+        "black-currant": 50,
+        "red-currant": 50,
     },
-    "lunch": {
-        "canned-tuna": 150,
-        "bread": 100,
-        "egg": 150,
-        "juice": 50,
-        "oil": 5,
+    "big-breakfast": {
+        "oats": 70,
+        "oat-milk": 400,
+        "pea-protein": 40,
+        "peach": 100,
+        "black-currant": 50,
+        "red-currant": 50,
+        "tahini": 20,
     },
-    "biglunch": {
-        "canned-tuna": 150,
-        #"smoked-salmon": 90,
-        "bread": 160,
-        "egg": 150,
-        "juice": 50,
-        "oil": 5,
+    "matcha": {
+        "oat-milk": 200,
     },
     "dinner": {
-        "chicken-breast": 400,
-        "sweet-potato": 400,
+        "chicken-breast": 250,
+        "salt-choc": 20,
+        "grapes": 150,
+        "peach": 150,
+        #"sweet-potato": 400,
         # 1/20th litre = 50ml
         "juice": 50,
         "oil": 5,
