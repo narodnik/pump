@@ -44,6 +44,7 @@ foods = {
     "pea-protein":  (1.7,   3.2,    85),
     "brocolli":     (0.3,   6.6,    2.8),
     "onion":        (0.1,   9.3,    1),
+    "watermelon":   (0.15,  7.6,    0.6),
 }
 
 dirname = "calories"
