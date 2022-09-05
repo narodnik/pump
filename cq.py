@@ -45,6 +45,13 @@ foods = {
     "brocolli":     (0.3,   6.6,    2.8),
     "onion":        (0.1,   9.3,    1),
     "watermelon":   (0.15,  7.6,    0.6),
+    "aubergine":    (0.2,   2.5,    1.2),
+    "courgette":    (0.3,   2.6,    1.1),
+    "garlic":       (0.5,   33,     6),
+    "okra":         (0.2,   7.5,    0.2),
+    "red-pepper":   (0.1,   5,      1),
+    "tomato-paste": (0.7,   4.4,    1.8),
+    "tomato":       (0.2,   4,      1),
 }
 
 dirname = "calories"
