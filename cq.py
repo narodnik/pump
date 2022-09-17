@@ -54,6 +54,7 @@ foods = {
     "tomato":       (0.2,   4,      1),
     "maize-flour":  (3,    79,      7),
     "injera":       (1.3,  25,      5),
+    "physalis":     (1,  15,      2.7),
 }
 
 dirname = "calories"
