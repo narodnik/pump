@@ -60,12 +60,17 @@ foods = {
 
 dirname = "calories"
 
-def today_filename():
+def today_datestr():
     now = datetime.now()
     # We only want the last 2 digits
     year = str(now.year)[2:]
-    filename = "%s/calorie_%02d%02d%s.wkt" % (dirname, now.day, now.month, year)
-    return filename
+    return f"{now.day:02d}{now.month:02d}{year}"
+
+def today_filename():
+    return date_filename(today_datestr())
+
+def date_filename(datestr):
+    return f"{dirname}/calorie_{datestr}.wkt"
 
 def append_data(data):
     try:
@@ -106,8 +111,8 @@ def add_food(food, amount, desc):
         "protein": protein,
     })
 
-def show_summary():
-    filename = today_filename()
+def show_summary(datestr):
+    filename = date_filename(datestr)
     if not os.path.isfile(filename):
         # Nothing to show
         return
@@ -151,6 +156,7 @@ def show_summary():
     pct_carb = round(100 * cal_carb / total_calorie)
     pct_prot = round(100 * cal_prot / total_calorie)
     table.append(("", "", f"{pct_fat}%", f"{pct_carb}%", f"{pct_prot}%", ""))
+    print(datestr)
     print()
     print(tabulate.tabulate(table, headers=table_headers))
 
@@ -212,22 +218,31 @@ def food_estimatoor(food, amount):
 
 def main(argv):
     if len(argv) == 1:
-        show_summary()
+        datestr = today_datestr()
+        show_summary(datestr)
     elif len(argv) == 2:
         command = argv[1]
         if command in meta_foods:
             add_meta(command)
-            show_summary()
+            datestr = today_datestr()
+            show_summary(datestr)
         elif command in foods:
             amount = get_amount(command)
             add_food(command, amount, None)
-            show_summary()
+            datestr = today_datestr()
+            show_summary(datestr)
         elif command == "show":
-            show_summary()
+            datestr = today_datestr()
+            show_summary(datestr)
         elif command == "list":
             names = list(meta_foods.keys()) + list(foods.keys())
             for name in names:
                 print(name)
+    elif len(argv) == 3:
+        command = argv[1]
+        assert command == "show"
+        datestr = argv[2]
+        show_summary(datestr)
     elif len(argv) == 4:
         command = argv[1]
         assert command == "est"
