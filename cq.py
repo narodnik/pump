@@ -59,6 +59,7 @@ foods = {
     "tortilla":     (2.9,   36.7,   4.4),
     "yogurt":       (3.5,   4.8,    4.5),
     "baked-beans":  (0.2,   12.9,   4.7),
+    "sss":          (8.43,  5.22,   6.6),
 }
 
 dirname = "calories"
