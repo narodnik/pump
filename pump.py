@@ -19,6 +19,8 @@ exercises = [
         ("ib",  "db_incline_bench",     "Db incline bench"),
         ("cf",  "cable_fly",            "Cable fly"),
         ("lcf", "cable_low_fly",        "Low cable fly"),
+        ("pb",  "pause_bench",          "Pause bench"),
+        ("drp", "drop_bench",           "Drop bench"),
     ]],
 
     [
