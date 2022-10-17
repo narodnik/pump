@@ -150,6 +150,16 @@ def append_session_exercise(reps, weight, rest, exercise_name):
     })
     save_session(session)
 
+def cancel_session_last_exercise():
+    session = load_session()
+    exercise = session[-1]
+    if exercise["workout"]:
+        print("There are still workouts here! Bailing", file=sys.stderr)
+        return
+    # Pop the last item off
+    session = session[:-1]
+    save_session(session)
+
 def save_session(session):
     try:
         os.mkdir(dirname)
@@ -176,23 +186,26 @@ def entry():
                 current_row = []
             idx += 1
     print(tabulate.tabulate(table))
-    print("Type 'c' for a custom exercise")
+    print("Type 'custom' for a custom exercise or 'resume' the last exercise.")
 
-    exercise = input("> ")
-    if exercise == "x":
+    cmd = input("> ")
+    if cmd == "x":
         print("Exiting")
         return EXIT
-    elif exercise == "c":
+    elif cmd == "custom":
         exercise = input("Custom exercise> ")
-    elif exercise not in keymap:
+        start_session_exercise(exercise)
+    elif cmd == "resume":
+        session = load_session()
+        exercise = session[-1]["exercise"]
+    elif cmd not in keymap:
         print("Invalid exercise.")
         return CONTINUE
     else:
-        exercise = keymap[exercise]
+        exercise = keymap[cmd]
         display_exercise_table(exercise)
         print(f"{descs[exercise]} ({exercise}) selected")
-
-    start_session_exercise(exercise)
+        start_session_exercise(exercise)
 
     i = 1
     rows = []
@@ -206,6 +219,7 @@ def entry():
 
         weight_new = input("Weight (%s)> " % weight)
         if weight_new == "c":
+            cancel_session_last_exercise()
             return CONTINUE
         elif weight_new == "f":
             return CONTINUE
@@ -216,6 +230,7 @@ def entry():
 
         reps = input("Set %s reps> " % i)
         if reps == "c":
+            cancel_session_last_exercise()
             return CONTINUE
         elif reps == "f":
             return CONTINUE
