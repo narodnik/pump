@@ -110,25 +110,52 @@ def format_elapsed_time(elapsed):
     delta = timedelta(seconds=int(elapsed))
     return str(delta)
 
-session = []
 dirname = "workouts"
 
-def save_exercise(exercise, rows):
-    data = {"exercise": exercise, "workout": rows}
-    session.append(data)
-    save_session()
-    print(f"Saved {data}")
+def today_datestr():
+    now = datetime.now()
+    # We only want the last 2 digits
+    year = str(now.year)[2:]
+    return f"{now.day:02d}{now.month:02d}{year}"
 
-def save_session():
+def today_filename():
+    return date_filename(today_datestr())
+
+def date_filename(datestr):
+    return f"{dirname}/workout_{datestr}.wkt"
+
+def load_session():
+    try:
+        with open(today_filename()) as fd:
+            return json.load(fd)
+    except FileNotFoundError:
+        return []
+
+def start_session_exercise(exercise):
+    session = load_session()
+    session.append({
+        "exercise": exercise,
+        "workout": []
+    })
+    save_session(session)
+
+def append_session_exercise(reps, weight, rest, exercise_name):
+    session = load_session()
+    exercise = session[-1]
+    assert exercise["exercise"] == exercise_name
+    exercise["workout"].append({
+        "reps": reps,
+        "weight": weight,
+        "rest": rest
+    })
+    save_session(session)
+
+def save_session(session):
     try:
         os.mkdir(dirname)
     except FileExistsError:
         pass
-    now = datetime.now()
-    # We only want the last 2 digits
-    year = str(now.year)[2:]
-    filename = "%s/workout_%02d%02d%s.wkt" % (dirname, now.day, now.month, year)
-    with open(filename, "w") as fd:
+    with open(today_filename(), "w") as fd:
         json.dump(session, fd, indent=4)
 
 start = time.time()
@@ -154,8 +181,6 @@ def entry():
     exercise = input("> ")
     if exercise == "x":
         print("Exiting")
-        pprint.pprint(session)
-        save_session()
         return EXIT
     elif exercise == "c":
         exercise = input("Custom exercise> ")
@@ -166,6 +191,8 @@ def entry():
         exercise = keymap[exercise]
         display_exercise_table(exercise)
         print(f"{descs[exercise]} ({exercise}) selected")
+
+    start_session_exercise(exercise)
 
     i = 1
     rows = []
@@ -181,7 +208,6 @@ def entry():
         if weight_new == "c":
             return CONTINUE
         elif weight_new == "f":
-            save_exercise(exercise, rows)
             return CONTINUE
         elif weight_new == "r":
             rows.pop()
@@ -192,7 +218,6 @@ def entry():
         if reps == "c":
             return CONTINUE
         elif reps == "f":
-            save_exercise(exercise, rows)
             return CONTINUE
         elif weight_new == "r":
             rows.pop()
@@ -211,11 +236,11 @@ def entry():
             continue
 
         end = time.time()
-        elapsed = end - start
-        print("%s elapsed." % format_elapsed_time(elapsed))
+        rest = end - start
+        print("%s elapsed." % format_elapsed_time(rest))
         start = end
 
-        rows.append({"reps": reps, "weight": weight, "rest": elapsed})
+        append_session_exercise(reps, weight, rest, exercise)
         i += 1
 
 def main(argv):

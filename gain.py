@@ -13,7 +13,12 @@ def get_month_name(month_number):
 def load_exercise_data(exercise):
     workouts = []
 
-    for filename in os.listdir("workouts"):
+    try:
+        dir_contents = os.listdir("workouts")
+    except FileNotFoundError:
+        return []
+
+    for filename in dir_contents:
         # Skip random files from syncthing
         if not filename.startswith("workout_"):
             continue
@@ -36,6 +41,8 @@ def load_exercise_data(exercise):
 def display_exercise_table(exercise):
     workouts = load_exercise_data(exercise)
 
+    row_max_len = 0
+
     table = []
     for _, date, index, data in workouts:
         day, month, year = date
@@ -56,13 +63,18 @@ def display_exercise_table(exercise):
             weight = Fore.GREEN + str(weight) + Style.RESET_ALL
             row.extend([weight, reps])
 
+        if len(row) > row_max_len:
+            row_max_len = len(row)
+
         table.append(row)
 
     headers = ["Date", "#"]
-    for i in range(1, 8):
-        headers.extend(["Weight %i" % i, "Reps", "Rest"])
+    for i in range(0, row_max_len):
+        headers.extend([f"Weight {i + 1}", "Reps", "Rest"])
 
-    print(tabulate.tabulate(table, headers=headers))
+    # Only display when there's actual data
+    if len(workouts):
+        print(tabulate.tabulate(table, headers=headers))
 
 def main(argv):
     if len(argv) != 2:
