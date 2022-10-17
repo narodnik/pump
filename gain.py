@@ -25,9 +25,9 @@ def load_exercise_data(exercise):
 
         with open(f"workouts/{filename}") as fd:
             info = json.load(fd)
-        for section in info:
+        for i, section in enumerate(info):
             if section["exercise"] == exercise:
-                workouts.append((index, date, section))
+                workouts.append((index, date, i, section))
                 #pprint.pprint(section)
 
     workouts.sort(key=lambda w: w[0])
@@ -37,12 +37,12 @@ def display_exercise_table(exercise):
     workouts = load_exercise_data(exercise)
 
     table = []
-    for _, date, data in workouts:
+    for _, date, index, data in workouts:
         day, month, year = date
         month = get_month_name(month)
         date = "%02d %s %s" % (day, month, year)
 
-        row = [date]
+        row = [date, index + 1]
 
         # Want to show interset reps
         for i, set in enumerate(data["workout"]):
@@ -58,7 +58,7 @@ def display_exercise_table(exercise):
 
         table.append(row)
 
-    headers = ["Date"]
+    headers = ["Date", "Index"]
     for i in range(1, 8):
         headers.extend(["Weight %i" % i, "Reps", "Rest"])
 
