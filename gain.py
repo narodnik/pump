@@ -58,7 +58,7 @@ def display_exercise_table(exercise):
 
         table.append(row)
 
-    headers = ["Date", "Index"]
+    headers = ["Date", "#"]
     for i in range(1, 8):
         headers.extend(["Weight %i" % i, "Reps", "Rest"])
 
