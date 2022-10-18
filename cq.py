@@ -10,7 +10,7 @@ from cq_config import meta_foods
 foods = {
     "canned-tuna":  (1,     0,      22),
     "smoked-salmon": (4,    0,      18),
-    "bread":        (5.5,   46,     10),
+    "bread":        (7.4,   49.6,   8.9),
     "egg":          (11,    1,      13),
     "oil":          (90,    0,      0),
     "chicken-breast": (1.2, 0,      24),
@@ -64,6 +64,8 @@ foods = {
     "cashew":       (44,    30,     18),
     "orange":       (0.1,   12,     0.9),
     "prickly-pear": (0.5,   9.6,    0.7),
+    "lamb":         (24.6,  0,      28.7),
+    "grapefruit":   (0.1,   8.41,   0.8),
 }
 
 dirname = "calories"
