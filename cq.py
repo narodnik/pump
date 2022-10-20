@@ -124,6 +124,7 @@ def add_food(food, amount, desc):
 def show_summary(datestr):
     filename = date_filename(datestr)
     if not os.path.isfile(filename):
+        print(datestr)
         # Nothing to show
         return
 
