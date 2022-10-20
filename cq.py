@@ -9,7 +9,7 @@ from cq_config import meta_foods
 # fat, carb, protein
 foods = {
     "canned-tuna":  (1,     0,      22),
-    "smoked-salmon": (4,    0,      18),
+    "smoked-salmon": (8.4,  0,      24.6),
     "bread":        (7.4,   49.6,   8.9),
     "egg":          (11,    1,      13),
     "oil":          (90,    0,      0),
