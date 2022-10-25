@@ -66,6 +66,7 @@ foods = {
     "prickly-pear": (0.5,   9.6,    0.7),
     "lamb":         (24.6,  0,      28.7),
     "grapefruit":   (0.1,   8.41,   0.8),
+    "feta":         (21,    0,      17),
 }
 
 dirname = "calories"
