@@ -67,6 +67,11 @@ foods = {
     "lamb":         (24.6,  0,      28.7),
     "grapefruit":   (0.1,   8.41,   0.8),
     "feta":         (21,    0,      17),
+    "apple":        (0,     14,     0),
+    "cashew":       (44,    30,     18),
+    "macadamia":    (76,    14,     8),
+    "walnut":       (65,    14,     15),
+    "almond":       (50,    22,     21),
 }
 
 dirname = "calories"
