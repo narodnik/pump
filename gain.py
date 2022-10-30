@@ -49,7 +49,9 @@ def display_exercise_table(exercise):
         month = get_month_name(month)
         date = "%02d %s %s" % (day, month, year)
 
-        row = [date, index + 1]
+        index = Style.DIM + str(index + 1) + Style.RESET_ALL
+
+        row = [date, index]
 
         # Want to show interset reps
         for i, set in enumerate(data["workout"]):
