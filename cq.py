@@ -72,6 +72,7 @@ foods = {
     "macadamia":    (76,    14,     8),
     "walnut":       (65,    14,     15),
     "almond":       (50,    22,     21),
+    "cake":         (10,    40,     4),
 }
 
 dirname = "calories"
