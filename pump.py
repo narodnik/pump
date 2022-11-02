@@ -168,10 +168,11 @@ def save_session(session):
     with open(today_filename(), "w") as fd:
         json.dump(session, fd, indent=4)
 
+session_start = time.time()
 start = time.time()
 
 def entry():
-    global start
+    global session_start, start
 
     table = []
     current_row = []
@@ -252,7 +253,9 @@ def entry():
 
         end = time.time()
         rest = end - start
-        print("%s elapsed." % format_elapsed_time(rest))
+        rest_format = format_elapsed_time(rest)
+        progress = format_elapsed_time(end - session_start)
+        print(f"{rest_format} elapsed. (overall {progress})")
         start = end
 
         append_session_exercise(reps, weight, rest, exercise)
