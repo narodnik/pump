@@ -160,6 +160,22 @@ def cancel_session_last_exercise():
     session = session[:-1]
     save_session(session)
 
+def redo_session_set():
+    session = load_session()
+    exercise = session[-1]
+    workout = exercise["workout"]
+    if not workout:
+        print("There are no workouts here! Bailing", file=sys.stderr)
+        return
+    workout.pop()
+    save_session(session)
+
+def get_session_set_index():
+    session = load_session()
+    exercise = session[-1]
+    workout = exercise["workout"]
+    return len(workout) + 1
+
 def save_session(session):
     try:
         os.mkdir(dirname)
@@ -187,7 +203,7 @@ def entry():
                 current_row = []
             idx += 1
     print(tabulate.tabulate(table))
-    print("Type 'custom' for a custom exercise or 'resume' the last exercise.")
+    print("Other options: custom, resume, show")
 
     cmd = input("> ")
     if cmd == "x":
@@ -199,6 +215,10 @@ def entry():
     elif cmd == "resume":
         session = load_session()
         exercise = session[-1]["exercise"]
+    elif cmd == "show":
+        session = load_session()
+        pprint.pprint(session, indent=2)
+        return CONTINUE
     elif cmd not in keymap:
         print("Invalid exercise.")
         return CONTINUE
@@ -208,8 +228,6 @@ def entry():
         print(f"{descs[exercise]} ({exercise}) selected")
         start_session_exercise(exercise)
 
-    i = 1
-    rows = []
     weight = None
     reps = None
     while True:
@@ -225,19 +243,17 @@ def entry():
         elif weight_new == "f":
             return CONTINUE
         elif weight_new == "r":
-            rows.pop()
-            i -= 1
+            redo_session_set()
             continue
 
-        reps = input("Set %s reps> " % i)
+        reps = input("Set %s reps> " % get_session_set_index())
         if reps == "c":
             cancel_session_last_exercise()
             return CONTINUE
         elif reps == "f":
             return CONTINUE
         elif weight_new == "r":
-            rows.pop()
-            i -= 1
+            redo_session_set()
             continue
 
         if weight_new:
@@ -259,7 +275,6 @@ def entry():
         start = end
 
         append_session_exercise(reps, weight, rest, exercise)
-        i += 1
 
 def main(argv):
     global dirname
