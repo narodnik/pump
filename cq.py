@@ -73,6 +73,7 @@ foods = {
     "walnut":       (65,    14,     15),
     "almond":       (50,    22,     21),
     "cake":         (10,    40,     4),
+    "pineapple":    (0,     13,     0),
 }
 
 dirname = "calories"
