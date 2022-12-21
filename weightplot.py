@@ -19,7 +19,7 @@ x_data = []
 y_data = []
 for row in rows:
     weight_idx = lookup["weight"]
-    weight = row[weight_idx]
+    weight = float(row[weight_idx])
 
     datetime_idx = lookup["dateTime"]
     dt = row[datetime_idx]
