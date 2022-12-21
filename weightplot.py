@@ -34,5 +34,7 @@ for row in rows:
 print(tabulate(table))
 
 plt.plot(x_data, y_data)
+
+#plt.savefig("/tmp/weight.jpg")
 plt.show()
 
