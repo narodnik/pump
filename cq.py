@@ -31,7 +31,7 @@ foods = {
     "tuna":         (1.3,   0,      28),
     "sweet-corn":   (1.2,   19,     3.2),
     "popcorn":      (0.9,   80,     9),
-    "tahini":       (52.8,   9,    25.5),
+    "tahini":       (64.2,   3,    21.0),
     "salt-choc":    (44,    33,     6.8),
     "black-currant":(0,     15,     1.4),
     "red-currant":  (0,     13,     1.4),
@@ -75,6 +75,7 @@ foods = {
     "cake":         (10,    40,     4),
     "pineapple":    (0,     13,     0),
     "mango":        (0,     15,     0.8),
+    "yogurt":       (6,     14.4,   4.8),
 }
 
 dirname = "calories"
