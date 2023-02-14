@@ -76,6 +76,11 @@ foods = {
     "pineapple":    (0,     13,     0),
     "mango":        (0,     15,     0.8),
     "yogurt":       (6,     14.4,   4.8),
+    "salmon":       (6.34,  0,      19.84),
+    "cod":          (0.45,  0,      17.86),
+    "peanut-butter": (50,   7,      29.5),
+    "brussels-sprout": (0,  9,      3.5),
+    "cabbage":      (0,     5.8,    1.3),
 }
 
 dirname = "calories"
