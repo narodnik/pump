@@ -83,6 +83,7 @@ foods = {
     "cabbage":      (0,     5.8,    1.3),
     "peanut":       (48,    21,     25),
     "cake":         (22,    60,     3),
+    "kidney-beans": (0.6,   14,     7.2),
 }
 
 dirname = "calories"
