@@ -21,7 +21,7 @@ response = requests.get(
     params={
         "api_key": API_KEY,
         "query": query,
-        "dataType": ["Foundation"],
+        "dataType": ["Foundation", "Survey (FNDDS)"],
         "pageSize": 200,
     }
 )
@@ -34,7 +34,7 @@ for page in pages[1:]:
         params={
             "api_key": API_KEY,
             "query": query,
-            "dataType": ["Foundation"],
+            "dataType": ["Foundation", "Survey (FNDDS)"],
             "pageSize": 200,
         }
     )
