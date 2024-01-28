@@ -44,6 +44,17 @@ if total == 0:
     print("exiting...")
     sys.argv(0)
 
+while True:
+    new_total = input(f"{total} total> ")
+    if not new_total:
+        break
+    try:
+        total = int(new_total)
+    except ValueError:
+        print("Try again")
+        continue
+    break
+
 r = 100/total
 f = round_float(fat*r)
 c = round_float(carb*r)

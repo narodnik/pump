@@ -207,7 +207,8 @@ def entry():
 
     cmd = input("> ")
     if cmd == "x":
-        print("Exiting")
+        session = load_session()
+        pprint.pprint(session, indent=2)
         return EXIT
     elif cmd == "custom":
         exercise = input("Custom exercise> ")
