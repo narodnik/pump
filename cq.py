@@ -175,11 +175,11 @@ def main(argv):
         show_summary(datestr)
     elif len(argv) == 2:
         command = argv[1]
-        if command in meta_foods:
-            add_meta(command)
-            datestr = today_datestr()
-            show_summary(datestr)
-        elif command in foods:
+        #if command in meta_foods:
+        #    add_meta(command)
+        #    datestr = today_datestr()
+        #    show_summary(datestr)
+        if command in foods:
             amount = get_amount(command)
             add_food(command, amount, None)
             datestr = today_datestr()
