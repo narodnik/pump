@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import json, os
 import datetime as dt
 import tabulate
