@@ -8,6 +8,7 @@ def last_sat():
     now = dt.date.today()
     idx = (now.weekday() + 1) % 7
     sat = now - dt.timedelta(days=7 + idx - 6)
+    assert sat.weekday() == 5
     return sat
 
 def calc_bucket(date):
