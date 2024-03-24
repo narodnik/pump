@@ -41,10 +41,13 @@ exercises = [
         ("sp",  "bb_press",             "Shoulder press"),
         ("dp",  "db_press",             "Db shoulder press"),
         ("mp",  "bb_military_press",    "Military press"),
+        ("kp",  "kb_overhead_press",    "Kb overhead press"),
         #("ap",  "arnold_press",         "Arnold press"),
-        ("hs",  "handstand_press",      "Handstand press"),
+        ("hp",  "handstand_press",      "Handstand press"),
         ("fr",  "front_raise",          "Front raise"),
         ("lr",  "lat_raise",            "Lat raise"),
+        ("kbh", "kb_halo",              "Kb halo"),
+        ("tg",  "turkish_getup",        "Turkish getup"),
     ]],
 
     [
@@ -54,10 +57,18 @@ exercises = [
         ("l",   "lunge",                "Lunge"),
         ("ss",  "split_squat",          "Split squat"),
         ("bx",  "box_squat",            "Box squat"),
+        ("sms", "smith_machine_squat",  "Smith machine squat"),
+        ("hs",  "hack_squat",           "Hack squat"),
         ("ht",  "hip_thrust",           "Hip thrust"),
         ("rdl", "romanian_deadlift",    "Romanian deadlift"),
         ("asl", "alt_leg_deadlift",     "Alt leg deadlift"),
+        ("kdl", "kb_deadlift",          "Kb deadlift"),
+        ("ks",  "kb_swing",             "Kb swing"),
         ("sol", "soleo",                "Soleo"),
+        ("lp",  "leg_press",            "Leg press"),
+        ("gm",  "good_morning",         "Good morning"),
+        ("sgm", "seated_good_morning",  "Seated good morning"),
+        ("tg",  "turkish_getup",        "Turkish getup"),
     ]],
 
     [
@@ -85,6 +96,8 @@ exercises = [
 
         ("hr",  "hanging_raise",        "Hanging raise"),
         ("ws",  "weighted_situp",       "Weighted situp"),
+        ("tg",  "turkish_getup",        "Turkish getup"),
+        ("kbh", "kb_halo",              "Kb halo"),
     ]],
     # ("c",   "",                 "Custom"),
 ]
