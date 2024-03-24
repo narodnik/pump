@@ -87,8 +87,10 @@ exercises = [
 
         ("sk",  "skullcrusher",         "Skullcrusher"),
         ("p",   "cable_pushdown",       "Cable pushdown"),
-        ("o",   "cable_overhead_ext",   "Cable overhead ext"),
+        ("k",   "tricep_kickback",      "Tricep kickback"),
         ("dip", "dips",                 "Dips"),
+        ("dm",  "diamond_pushup",       "Diamond pushup"),
+        ("o",   "cable_overhead_ext",   "Cable overhead ext"),
     ]],
 
     [

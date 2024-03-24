@@ -115,7 +115,9 @@ body_parts = [
         "skullcrusher",
         "cable_pushdown",
         "cable_overhead_ext",
+        "tricep_kickback",
         "dips",
+        "diamond_pushup",
     ]),
 ]
 
