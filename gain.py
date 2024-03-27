@@ -56,12 +56,12 @@ def display_exercise_table(exercise):
 
         # Want to show interset reps
         for i, set in enumerate(data["workout"]):
-            if i > 0:
-                rest_time = int(set["rest"] / 60)
-                rest_time = Style.DIM + str(rest_time) + Style.RESET_ALL
-                row.append(rest_time)
+            #if i > 0:
+            #    rest_time = int(set["rest"] / 60)
+            #    rest_time = Style.DIM + str(rest_time) + Style.RESET_ALL
+            #    row.append(rest_time)
             reps = set["reps"]
-            rest = set["rest"]
+            #rest = set["rest"]
             weight = set["weight"]
             weight = Fore.GREEN + str(weight) + Style.RESET_ALL
             row.extend([weight, reps])
@@ -73,7 +73,7 @@ def display_exercise_table(exercise):
 
     headers = ["Date", "#"]
     for i in range(0, row_max_len):
-        headers.extend([f"Weight {i + 1}", "Reps", "Rest"])
+        headers.extend([f"Weight {i + 1}", "Reps"])
 
     # Only display when there's actual data
     if len(workouts):
