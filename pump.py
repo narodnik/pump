@@ -47,7 +47,7 @@ exercises = [
         ("fr",  "front_raise",          "Front raise"),
         ("lr",  "lat_raise",            "Lat raise"),
         ("kbh", "kb_halo",              "Kb halo"),
-        ("tg",  "turkish_getup",        "Turkish getup"),
+        ("kbg", "kb_getup",             "Kb getup"),
     ]],
 
     [
@@ -68,7 +68,6 @@ exercises = [
         ("lp",  "leg_press",            "Leg press"),
         ("gm",  "good_morning",         "Good morning"),
         ("sgm", "seated_good_morning",  "Seated good morning"),
-        ("tg",  "turkish_getup",        "Turkish getup"),
     ]],
 
     [
@@ -98,8 +97,6 @@ exercises = [
 
         ("hr",  "hanging_raise",        "Hanging raise"),
         ("ws",  "weighted_situp",       "Weighted situp"),
-        ("tg",  "turkish_getup",        "Turkish getup"),
-        ("kbh", "kb_halo",              "Kb halo"),
     ]],
     # ("c",   "",                 "Custom"),
 ]

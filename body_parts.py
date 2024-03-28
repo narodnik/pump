@@ -83,7 +83,7 @@ body_parts = [
         "front_raise",
         "lat_raise",
         "kb_halo",
-        "turkish_getup",
+        "kb_getup",
     ]),
     ("legs", [
         "squat",
@@ -101,7 +101,7 @@ body_parts = [
         "leg_press",
         "good_morning",
         "seated_good_morning",
-        "turkish_getup",
+        "kb_getup",
     ]),
     ("biceps", [
         "bb_curl",
