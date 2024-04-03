@@ -20,8 +20,10 @@ exercises = [
         ("ib",  "db_incline_bench",     "Db incline bench"),
         ("cf",  "cable_fly",            "Cable fly"),
         ("lcf", "cable_low_fly",        "Low cable fly"),
-        ("pb",  "pause_bench",          "Pause bench"),
-        ("drp", "drop_bench",           "Drop bench"),
+        #("pb",  "pause_bench",          "Pause bench"),
+        #("drp", "drop_bench",           "Drop bench"),
+        ("wp",  "weighted_pushup",      "Weighted pushup"),
+        ("1p",  "1arm_pushup",          "One-arm pushup"),
     ]],
 
     [

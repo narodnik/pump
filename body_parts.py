@@ -54,72 +54,67 @@ def load_exercise_data(week_buckets):
 
     return workouts
 
-body_parts = [
-    ("chest", [
-        "bb_bench",
-        "db_bench",
-        "bb_incline_bench",
-        "db_incline_bench",
-        "cable_fly",
-        "cable_low_fly",
-        "pause_bench",
-        "drop_bench",
-    ]),
-    ("back", [
-        "deadlift",
-        "pullup",
-        "bb_row",
-        "db_row",
-        "db_pullover",
-        "cable_pulldown",
-    ]),
-    ("shoulders", [
-        "bb_press",
-        "db_press",
-        "bb_military_press",
-        "kb_overhead_press",
-        "arnold_press",
-        "handstand_press",
-        "front_raise",
-        "lat_raise",
-        "kb_halo",
-        "kb_getup",
-    ]),
-    ("legs", [
-        "squat",
-        "lunge",
-        "split_squat",
-        "box_squat",
-        "smith_machine_squat",
-        "hack_squat",
-        "hip_thrust",
-        "romanian_deadlift",
-        "alt_leg_deadlift",
-        "kb_deadlift",
-        "kb_swing",
-        "soleo",
-        "leg_press",
-        "good_morning",
-        "seated_good_morning",
-        "kb_getup",
-    ]),
-    ("biceps", [
-        "bb_curl",
-        "cable_curl",
-        "db_curl",
-        "hammer_curl",
-        "preacher_curl",
-        "incline_curl",
-    ]),
-    ("triceps", [
-        "skullcrusher",
-        "cable_pushdown",
-        "cable_overhead_ext",
-        "tricep_kickback",
-        "dips",
-        "diamond_pushup",
-    ]),
-]
+body_parts = {
+    "bb_bench": ["chest"],
+    "db_bench": ["chest"],
+    "bb_incline_bench": ["chest"],
+    "db_incline_bench": ["chest"],
+    "cable_fly": ["chest"],
+    "cable_low_fly": ["chest"],
+    "pause_bench": ["chest"],
+    "drop_bench": ["chest"],
+    "weighted_pushup": ["chest"],
+    "1arm_pushup": ["chest"],
+
+    "deadlift": ["back"],
+    "pullup": ["back"],
+    "bb_row": ["back"],
+    "db_row": ["back"],
+    "db_pullover": ["back"],
+    "cable_pulldown": ["back"],
+
+    "bb_press": ["shoulders"],
+    "db_press": ["shoulders"],
+    "bb_military_press": ["shoulders"],
+    "kb_overhead_press": ["shoulders"],
+    "arnold_press": ["shoulders"],
+    "handstand_press": ["shoulders"],
+    "front_raise": ["shoulders"],
+    "lat_raise": ["shoulders"],
+    "kb_halo": ["shoulders"],
+    "kb_getup": ["shoulders"],
+
+    "squat": ["legs"],
+    "lunge": ["legs"],
+    "split_squat": ["legs"],
+    "box_squat": ["legs"],
+    "smith_machine_squat": ["legs"],
+    "hack_squat": ["legs"],
+    "hip_thrust": ["legs"],
+    "romanian_deadlift": ["legs"],
+    "alt_leg_deadlift": ["legs"],
+    "kb_deadlift": ["legs"],
+    "kb_swing": ["legs"],
+    "soleo": ["legs"],
+    "leg_press": ["legs"],
+    "good_morning": ["legs"],
+    "seated_good_morning": ["legs"],
+    "kb_getup": ["legs"],
+
+    "bb_curl": ["biceps"],
+    "cable_curl": ["biceps"],
+    "db_curl": ["biceps"],
+    "hammer_curl": ["biceps"],
+    "preacher_curl": ["biceps"],
+    "incline_curl": ["biceps"],
+
+    "skullcrusher": ["triceps"],
+    "cable_pushdown": ["triceps"],
+    "cable_overhead_ext": ["triceps"],
+    "tricep_kickback": ["triceps"],
+    "dips": ["triceps"],
+    "diamond_pushup": ["triceps"],
+}
 
 week_buckets = [last_sat()]
 for i in range(N-1):
@@ -131,23 +126,33 @@ workouts = load_exercise_data(week_buckets)
 #import pprint
 #pprint.pprint(workouts)
 
+bucket_data = {
+    "chest": [0, 0, 0, 0],
+    "back": [0, 0, 0, 0],
+    "shoulders": [0, 0, 0, 0],
+    "legs": [0, 0, 0, 0],
+    "biceps": [0, 0, 0, 0],
+    "triceps": [0, 0, 0, 0],
+}
+
+for (exercise, sets) in workouts.items():
+    if exercise not in body_parts:
+        print(f"Skipping {exercise}!")
+        continue
+    affected_parts = body_parts[exercise]
+    for body_part in affected_parts:
+        for i, set_count in enumerate(sets[::-1]):
+            bucket_data[body_part][i] += set_count
+
 table = []
-headers = ["Body Part", "#", "Sets"]
-for (body_part, exercises) in body_parts:
-    sets = [0 for _ in range(N)]
-    headers.append(body_part)
-    for ex in exercises:
-        if ex in workouts:
-            buckets = workouts[ex]
-            assert len(buckets) == len(sets)
-            for i in range(N):
-                sets[i] += buckets[i]
-    for (week, sets_n) in enumerate(sets[::-1]):
-        if week == 0:
-            b = body_part
-        else:
-            b = ""
-        table.append((b, sets_n))
+headers = ["Body Part", "#"]
+for (body_part, buckets) in bucket_data.items():
+    for (i, set_count) in enumerate(buckets):
+        key = ""
+        if i == 0:
+            key = body_part
+
+        table.append((key, set_count))
     table.append(("", ""))
 
 print(tabulate.tabulate(table, headers=headers))

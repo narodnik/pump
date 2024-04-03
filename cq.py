@@ -191,6 +191,10 @@ def main(argv):
             names = list(meta_foods.keys()) + list(foods.keys())
             for name in names:
                 print(name)
+        elif command == "edit":
+            datestr = today_datestr()
+            filename = date_filename(datestr)
+            os.system(f"nvim {filename}")
     elif len(argv) == 3:
         command = argv[1]
         assert command == "show"
