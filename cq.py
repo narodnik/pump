@@ -24,7 +24,7 @@ def today_filename():
 def date_filename(datestr):
     return f"{dirname}/calorie_{datestr}.wkt"
 
-def append_data(data):
+def load_today_data():
     try:
         os.mkdir(dirname)
     except FileExistsError:
@@ -32,12 +32,20 @@ def append_data(data):
     filename = today_filename()
     if os.path.isfile(filename):
         with open(filename, "r") as fd:
-            current_data = json.load(fd)
+            data = json.load(fd)
     else:
-        current_data = []
-    current_data.append(data)
+        data = []
+    return data
+
+def save_today_data(data):
+    filename = today_filename()
     with open(filename, "w") as fd:
-        json.dump(current_data, fd, indent=4)
+        json.dump(data, fd, indent=4)
+
+def append_data(data):
+    current_data = load_today_data()
+    current_data.append(data)
+    save_today_data(current_data)
 
 def get_amount(food):
     while True:
@@ -195,6 +203,12 @@ def main(argv):
             datestr = today_datestr()
             filename = date_filename(datestr)
             os.system(f"nvim {filename}")
+        elif command == "pop":
+            current_data = load_today_data()
+            current_data.pop()
+            save_today_data(current_data)
+            datestr = today_datestr()
+            show_summary(datestr)
     elif len(argv) == 3:
         command = argv[1]
         assert command == "show"
