@@ -6,9 +6,19 @@ from datetime import datetime
 from kivy.app import async_runTouchApp
 from kivy.lang.builder import Builder
 
+from android.permissions import request_permissions, Permission 
+from android.storage import primary_external_storage_path
+perms = [
+    Permission.BLUETOOTH_CONNECT,
+    Permission.BLUETOOTH_SCAN,
+    Permission.WRITE_EXTERNAL_STORAGE,
+    Permission.READ_EXTERNAL_STORAGE
+]
+request_permissions(perms)
+
 from polarh10 import PolarH10
 
-dirname = "ibi_ecg"
+dirname = "Download/share/ecg"
 
 kv = '''
 BoxLayout:
@@ -29,11 +39,15 @@ def today_filename():
     return date_filename(today_datestr())
 
 def date_filename(datestr):
-    return f"{dirname}/ecg_{datestr}.wkt"
+    return os.path.join(
+        primary_external_storage_path(),
+        dirname,
+        f"ecg_{datestr}.wkt"
+    )
 
 def append_record(ecg):
     try:
-        os.mkdir(dirname)
+        os.mkdir(os.path.join(primary_external_storage_path(), dirname))
     except FileExistsError:
         pass
     filename = today_filename()
@@ -86,10 +100,10 @@ async def run_sensor(root, polar_sensor):
             # convert from numpy float
             # value is in ms
             ibi = float(ibi[0])
-            #append_record(ibi)
+            append_record(ibi)
             ibi /= 1000
-            bpm = 60/ibi
-            root.ids.label.text = f"{ibi} ({bpm})"
+            bpm = int(60/ibi)
+            root.ids.label.text = f"{ibi:.3f} ({bpm})"
 
 root = Builder.load_string(kv)
 other_task = asyncio.ensure_future(monitor_hr(root))
