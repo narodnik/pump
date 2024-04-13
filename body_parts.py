@@ -65,6 +65,7 @@ body_parts = {
     "drop_bench": ["chest"],
     "weighted_pushup": ["chest"],
     "1arm_pushup": ["chest"],
+    "pushup": ["chest"],
 
     "deadlift": ["back"],
     "pullup": ["back"],
