@@ -61,6 +61,8 @@ async def main(address):
 
             # convert from numpy float
             ibi = float(ibi[0])
+            bpm = 60000/ibi
+            print(int(bpm))
             append_record(ibi)
 
     # never happens lol
