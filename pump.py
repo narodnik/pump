@@ -10,102 +10,6 @@ from datetime import datetime, timedelta
 from gain import display_exercise_table
 #from reps import show_relative_intensity_table
 
-'''
-exercises = [
-    [
-        "Chest", [
-
-        ("b",   "bb_bench",             "Bench press"),
-        ("db",  "db_bench",             "Db bench press"),
-        ("i",   "bb_incline_bench",     "Incline bench"),
-        ("ib",  "db_incline_bench",     "Db incline bench"),
-        ("cf",  "cable_fly",            "Cable fly"),
-        ("lcf", "cable_low_fly",        "Low cable fly"),
-        #("pb",  "pause_bench",          "Pause bench"),
-        #("drp", "drop_bench",           "Drop bench"),
-        ("wp",  "weighted_pushup",      "Weighted pushup"),
-        ("1p",  "1arm_pushup",          "One-arm pushup"),
-        ("pu",  "pushup",               "Push up"),
-    ]],
-
-    [
-        "Back", [
-
-        ("d",   "deadlift",             "Deadlift"),
-        ("pp",  "pullup",               "Pullup"),
-        ("r",   "bb_row",               "Row"),
-        ("dr",  "db_row",               "Db row"),
-        ("po",  "db_pullover",          "Db pullover"),
-        ("cp",  "cable_pulldown",       "Cable pulldown"),
-    ]],
-
-    [
-        "Shoulders", [
-
-        ("sp",  "bb_press",             "Shoulder press"),
-        ("dp",  "db_press",             "Db shoulder press"),
-        ("mp",  "bb_military_press",    "Military press"),
-        ("kp",  "kb_overhead_press",    "Kb overhead press"),
-        #("ap",  "arnold_press",         "Arnold press"),
-        ("hp",  "handstand_press",      "Handstand press"),
-        ("fr",  "front_raise",          "Front raise"),
-        ("lr",  "lat_raise",            "Lat raise"),
-        ("kbh", "kb_halo",              "Kb halo"),
-        ("kbg", "kb_getup",             "Kb getup"),
-    ]],
-
-    [
-        "Legs", [
-
-        ("s",   "squat",                "Squat"),
-        ("l",   "lunge",                "Lunge"),
-        ("ss",  "split_squat",          "Split squat"),
-        ("bx",  "box_squat",            "Box squat"),
-        ("sms", "smith_machine_squat",  "Smith machine squat"),
-        ("hs",  "hack_squat",           "Hack squat"),
-        ("ht",  "hip_thrust",           "Hip thrust"),
-        ("rdl", "romanian_deadlift",    "Romanian deadlift"),
-        ("asl", "alt_leg_deadlift",     "Alt leg deadlift"),
-        ("kdl", "kb_deadlift",          "Kb deadlift"),
-        ("ks",  "kb_swing",             "Kb swing"),
-        ("sol", "soleo",                "Soleo"),
-        ("lp",  "leg_press",            "Leg press"),
-        ("gm",  "good_morning",         "Good morning"),
-        ("sgm", "seated_good_morning",  "Seated good morning"),
-    ]],
-
-    [
-        "Biceps", [
-
-        ("bc",  "bb_curl",              "Curl"),
-        ("cc",  "cable_curl",           "Cable curl"),
-        ("dc",  "db_curl",              "Db curl"),
-        ("hc",  "hammer_curl",          "Hammer curl"),
-        ("pc",  "preacher_curl",        "Preacher curl"),
-        ("ic",  "incline_curl",         "Incline curl"),
-    ]],
-
-    [
-        "Triceps", [
-
-        ("sk",  "skullcrusher",         "Skullcrusher"),
-        ("p",   "cable_pushdown",       "Cable pushdown"),
-        ("k",   "tricep_kickback",      "Tricep kickback"),
-        ("dip", "dips",                 "Dips"),
-        ("dm",  "diamond_pushup",       "Diamond pushup"),
-        ("o",   "cable_overhead_ext",   "Cable overhead ext"),
-    ]],
-
-    [
-        "Core", [
-
-        ("hr",  "hanging_raise",        "Hanging raise"),
-        ("ws",  "weighted_situp",       "Weighted situp"),
-    ]],
-    # ("c",   "",                 "Custom"),
-]
-'''
-
 def normie_name(name):
     return name.replace(" ", "_")\
                .replace("-", "_")\
@@ -118,12 +22,6 @@ def load_exercises(filename):
     
 def get_all_exercises(exercises):
     all_exercises = []
-    '''
-    for body_part, exer in exercises:
-        all_exercises.extend(exer)
-    return all_exercises
-    '''
-    # return just values in the dict
     for _, exs in exercises.items():
         all_exercises.extend(exs)
     return all_exercises
