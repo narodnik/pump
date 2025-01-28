@@ -10,6 +10,7 @@ from datetime import datetime, timedelta
 from gain import display_exercise_table
 #from reps import show_relative_intensity_table
 
+'''
 exercises = [
     [
         "Chest", [
@@ -103,22 +104,37 @@ exercises = [
     ]],
     # ("c",   "",                 "Custom"),
 ]
+'''
 
-def get_all_exercises():
+def normie_name(name):
+    return name.replace(" ", "_")\
+               .replace("-", "_")\
+               .toLowerCase()\
+               .title()
+
+def load_exercises(filename):
+    with open(filename) as fd:
+        return json.load(fd)
+    
+def get_all_exercises(exercises):
     all_exercises = []
+    '''
     for body_part, exer in exercises:
         all_exercises.extend(exer)
     return all_exercises
+    '''
+    # return just values in the dict
+    for _, exs in exercises.items():
+        all_exercises.extend(exs)
+    return all_exercises
 
-def build_maps():
+def build_maps(exercises):
     keymap = {}
     descs = {}
-    for key, exercise_tag, exercise_desc in get_all_exercises():
+    for key, exercise_tag, exercise_desc in get_all_exercises(exercises):
         keymap[key] = exercise_tag
         descs[exercise_tag] = exercise_desc
     return keymap, descs
-
-keymap, descs = build_maps()
 
 CONTINUE = 0
 EXIT = 1
@@ -204,13 +220,14 @@ def save_session(session):
 session_start = time.time()
 start = time.time()
 
-def entry():
+def entry(exercises):
     global session_start, start
+    keymap, descs = build_maps(exercises)
 
     table = []
     current_row = []
     idx = 0
-    for body_part, exers in exercises:
+    for body_part, exers in exercises.items():
         if idx > 0:
             table.append([])
         for key, _, name in exers:
@@ -299,8 +316,9 @@ def main(argv):
     if len(argv) > 1:
         dirname = argv[1]
 
+    exercises = load_exercises("wkt.json")
     while True:
-        if entry() == EXIT:
+        if entry(exercises) == EXIT:
             return 0
 
 if __name__ == "__main__":
