@@ -1,8 +1,9 @@
 #!/usr/bin/python
 import json
-import os, sys
+import os, sys, re
 import tabulate
 from datetime import datetime
+from iterfzf import iterfzf
 
 from cq_config import meta_foods
 
@@ -187,12 +188,7 @@ def main(argv):
         #    add_meta(command)
         #    datestr = today_datestr()
         #    show_summary(datestr)
-        if command in foods:
-            amount = get_amount(command)
-            add_food(command, amount, None)
-            datestr = today_datestr()
-            show_summary(datestr)
-        elif command == "show":
+        if command == "show":
             datestr = today_datestr()
             show_summary(datestr)
         elif command == "list":
@@ -207,6 +203,31 @@ def main(argv):
             current_data = load_today_data()
             current_data.pop()
             save_today_data(current_data)
+            datestr = today_datestr()
+            show_summary(datestr)
+        else:
+            search = command.lower()
+            foods_match = [
+                f for f in foods
+                if re.search(r'.*'.join(search), f.lower())
+            ]
+            if not foods_match:
+                print("No match found/")
+                return
+            if len(foods_match) == 1:
+                food = foods_match[0]
+            else:
+                food = iterfzf(foods_match)
+                if food is None:
+                    print("Exiting.")
+                    return
+            try:
+                amount = get_amount(food)
+            except KeyboardInterrupt:
+                print()
+                print("Cancelled.")
+                return
+            add_food(food, amount, None)
             datestr = today_datestr()
             show_summary(datestr)
     elif len(argv) == 3:
