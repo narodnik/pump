@@ -10,115 +10,29 @@ from datetime import datetime, timedelta
 from gain import display_exercise_table
 #from reps import show_relative_intensity_table
 
-exercises = [
-    [
-        "Chest", [
+def normie_name(name):
+    return name.replace(" ", "_")\
+               .replace("-", "_")\
+               .toLowerCase()\
+               .title()
 
-        ("b",   "bb_bench",             "Bench press"),
-        ("db",  "db_bench",             "Db bench press"),
-        ("i",   "bb_incline_bench",     "Incline bench"),
-        ("ib",  "db_incline_bench",     "Db incline bench"),
-        ("cf",  "cable_fly",            "Cable fly"),
-        ("lcf", "cable_low_fly",        "Low cable fly"),
-        #("pb",  "pause_bench",          "Pause bench"),
-        #("drp", "drop_bench",           "Drop bench"),
-        ("wp",  "weighted_pushup",      "Weighted pushup"),
-        ("1p",  "1arm_pushup",          "One-arm pushup"),
-        ("pu",  "pushup",               "Push up"),
-    ]],
-
-    [
-        "Back", [
-
-        ("d",   "deadlift",             "Deadlift"),
-        ("pp",  "pullup",               "Pullup"),
-        ("r",   "bb_row",               "Row"),
-        ("dr",  "db_row",               "Db row"),
-        ("po",  "db_pullover",          "Db pullover"),
-        ("cp",  "cable_pulldown",       "Cable pulldown"),
-    ]],
-
-    [
-        "Shoulders", [
-
-        ("sp",  "bb_press",             "Shoulder press"),
-        ("dp",  "db_press",             "Db shoulder press"),
-        ("mp",  "bb_military_press",    "Military press"),
-        ("kp",  "kb_overhead_press",    "Kb overhead press"),
-        #("ap",  "arnold_press",         "Arnold press"),
-        ("hp",  "handstand_press",      "Handstand press"),
-        ("fr",  "front_raise",          "Front raise"),
-        ("lr",  "lat_raise",            "Lat raise"),
-        ("kbh", "kb_halo",              "Kb halo"),
-        ("kbg", "kb_getup",             "Kb getup"),
-    ]],
-
-    [
-        "Legs", [
-
-        ("s",   "squat",                "Squat"),
-        ("l",   "lunge",                "Lunge"),
-        ("ss",  "split_squat",          "Split squat"),
-        ("bx",  "box_squat",            "Box squat"),
-        ("sms", "smith_machine_squat",  "Smith machine squat"),
-        ("hs",  "hack_squat",           "Hack squat"),
-        ("ht",  "hip_thrust",           "Hip thrust"),
-        ("rdl", "romanian_deadlift",    "Romanian deadlift"),
-        ("asl", "alt_leg_deadlift",     "Alt leg deadlift"),
-        ("kdl", "kb_deadlift",          "Kb deadlift"),
-        ("ks",  "kb_swing",             "Kb swing"),
-        ("sol", "soleo",                "Soleo"),
-        ("lp",  "leg_press",            "Leg press"),
-        ("gm",  "good_morning",         "Good morning"),
-        ("sgm", "seated_good_morning",  "Seated good morning"),
-    ]],
-
-    [
-        "Biceps", [
-
-        ("bc",  "bb_curl",              "Curl"),
-        ("cc",  "cable_curl",           "Cable curl"),
-        ("dc",  "db_curl",              "Db curl"),
-        ("hc",  "hammer_curl",          "Hammer curl"),
-        ("pc",  "preacher_curl",        "Preacher curl"),
-        ("ic",  "incline_curl",         "Incline curl"),
-    ]],
-
-    [
-        "Triceps", [
-
-        ("sk",  "skullcrusher",         "Skullcrusher"),
-        ("p",   "cable_pushdown",       "Cable pushdown"),
-        ("k",   "tricep_kickback",      "Tricep kickback"),
-        ("dip", "dips",                 "Dips"),
-        ("dm",  "diamond_pushup",       "Diamond pushup"),
-        ("o",   "cable_overhead_ext",   "Cable overhead ext"),
-    ]],
-
-    [
-        "Core", [
-
-        ("hr",  "hanging_raise",        "Hanging raise"),
-        ("ws",  "weighted_situp",       "Weighted situp"),
-    ]],
-    # ("c",   "",                 "Custom"),
-]
-
-def get_all_exercises():
+def load_exercises(filename):
+    with open(filename) as fd:
+        return json.load(fd)
+    
+def get_all_exercises(exercises):
     all_exercises = []
-    for body_part, exer in exercises:
-        all_exercises.extend(exer)
+    for _, exs in exercises.items():
+        all_exercises.extend(exs)
     return all_exercises
 
-def build_maps():
+def build_maps(exercises):
     keymap = {}
     descs = {}
-    for key, exercise_tag, exercise_desc in get_all_exercises():
+    for key, exercise_tag, exercise_desc in get_all_exercises(exercises):
         keymap[key] = exercise_tag
         descs[exercise_tag] = exercise_desc
     return keymap, descs
-
-keymap, descs = build_maps()
 
 CONTINUE = 0
 EXIT = 1
@@ -204,13 +118,14 @@ def save_session(session):
 session_start = time.time()
 start = time.time()
 
-def entry():
+def entry(exercises):
     global session_start, start
+    keymap, descs = build_maps(exercises)
 
     table = []
     current_row = []
     idx = 0
-    for body_part, exers in exercises:
+    for body_part, exers in exercises.items():
         if idx > 0:
             table.append([])
         for key, _, name in exers:
@@ -299,8 +214,9 @@ def main(argv):
     if len(argv) > 1:
         dirname = argv[1]
 
+    exercises = load_exercises("wkt.json")
     while True:
-        if entry() == EXIT:
+        if entry(exercises) == EXIT:
             return 0
 
 if __name__ == "__main__":
