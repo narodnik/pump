@@ -92,6 +92,7 @@ def show_summary(datestr):
         "Calories"
     )
     total_fat, total_carb, total_protein = 0, 0, 0
+    total_choc = 0
     for item in data:
         food = item["food"]
         amount = item["amount"]
@@ -100,6 +101,9 @@ def show_summary(datestr):
         carb = item["carb"] * mult
         protein = item["protein"] * mult
         calorie = 9*fat + 4*carb + 4*protein
+
+        if "choc" in food:
+            total_choc += calorie
 
         total_fat += fat
         total_carb += carb
@@ -121,6 +125,7 @@ def show_summary(datestr):
     print(datestr)
     print()
     print(tabulate.tabulate(table, headers=table_headers))
+    print(f"Choc (cal): {total_choc:.0f}")
 
 def choose_food():
     names = list(meta_foods.keys()) + list(foods.keys())
@@ -178,6 +183,32 @@ def food_estimatoor(food, amount):
 
     return fat, carb, protein, calorie
 
+def select_food(command):
+    # Check for an exact match
+    if command in foods:
+        return command
+
+    search = command.lower()
+    foods_match = [
+        f for f in foods
+        if re.search(r'.*'.join(search), f.lower())
+    ]
+
+    if not foods_match:
+        print("No match found.")
+        return None
+
+    if len(foods_match) == 1:
+        return foods_match[0]
+
+    # Do fzf search
+    food = iterfzf(foods_match)
+    if food is None:
+        print("Exiting.")
+        return None
+
+    return food
+
 def main(argv):
     if len(argv) == 1:
         datestr = today_datestr()
@@ -206,21 +237,8 @@ def main(argv):
             datestr = today_datestr()
             show_summary(datestr)
         else:
-            search = command.lower()
-            foods_match = [
-                f for f in foods
-                if re.search(r'.*'.join(search), f.lower())
-            ]
-            if not foods_match:
-                print("No match found/")
+            if (food := select_food(command)) is None:
                 return
-            if len(foods_match) == 1:
-                food = foods_match[0]
-            else:
-                food = iterfzf(foods_match)
-                if food is None:
-                    print("Exiting.")
-                    return
             try:
                 amount = get_amount(food)
             except KeyboardInterrupt:

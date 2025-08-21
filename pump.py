@@ -23,7 +23,8 @@ exercises = [
         #("pb",  "pause_bench",          "Pause bench"),
         #("drp", "drop_bench",           "Drop bench"),
         ("wp",  "weighted_pushup",      "Weighted pushup"),
-        ("1p",  "1arm_pushup",          "One-arm pushup"),
+        #("1p",  "1arm_pushup",          "One-arm pushup"),
+        ("df",  "db_fly",               "Db fly"),
         ("pu",  "pushup",               "Push up"),
     ]],
 
