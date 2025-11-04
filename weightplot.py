@@ -25,6 +25,8 @@ for row in rows:
     dt = row[datetime_idx]
     # 2022-03-22 22:03
     dt = datetime.strptime(dt, "%Y-%m-%d %H:%M")
+    if dt.year < 2024:
+        break
 
     table.append((dt, weight))
 
