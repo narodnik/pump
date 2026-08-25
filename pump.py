@@ -35,7 +35,7 @@ exercises = [
         ("pp",  "pullup",               "Pullup"),
         ("r",   "bb_row",               "Row"),
         ("dr",  "db_row",               "Db row"),
-        ("po",  "db_pullover",          "Db pullover"),
+        ("sh",  "shrugs",               "Shrugs"),
         ("cp",  "cable_pulldown",       "Cable pulldown"),
     ]],
 
