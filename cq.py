@@ -2,7 +2,7 @@
 import json
 import os, sys, re
 import tabulate
-from datetime import datetime
+from datetime import datetime, timedelta
 from iterfzf import iterfzf
 
 from cq_config import meta_foods
@@ -24,6 +24,17 @@ def today_filename():
 
 def date_filename(datestr):
     return f"{dirname}/calorie_{datestr}.wkt"
+
+def resolve_datestr(arg):
+    try:
+        offset = int(arg)
+    except ValueError:
+        return arg
+    if offset >= 0:
+        return arg
+    date = datetime.now() + timedelta(days=offset)
+    year = str(date.year)[2:]
+    return f"{date.day:02d}{date.month:02d}{year}"
 
 def load_today_data():
     try:
@@ -250,9 +261,13 @@ def main(argv):
             show_summary(datestr)
     elif len(argv) == 3:
         command = argv[1]
-        assert command == "show"
-        datestr = argv[2]
-        show_summary(datestr)
+        assert command in ("show", "edit")
+        datestr = resolve_datestr(argv[2])
+        if command == "show":
+            show_summary(datestr)
+        elif command == "edit":
+            filename = date_filename(datestr)
+            os.system(f"nvim {filename}")
     elif len(argv) == 4:
         command = argv[1]
         assert command == "est"
