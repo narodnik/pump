@@ -36,12 +36,12 @@ def resolve_datestr(arg):
     year = str(date.year)[2:]
     return f"{date.day:02d}{date.month:02d}{year}"
 
-def load_today_data():
+def load_day_data(datestr):
     try:
         os.mkdir(dirname)
     except FileExistsError:
         pass
-    filename = today_filename()
+    filename = date_filename(datestr)
     if os.path.isfile(filename):
         with open(filename, "r") as fd:
             data = json.load(fd)
@@ -49,15 +49,27 @@ def load_today_data():
         data = []
     return data
 
-def save_today_data(data):
-    filename = today_filename()
+def load_today_data():
+    return load_day_data(today_datestr())
+
+def save_day_data(data, datestr):
+    filename = date_filename(datestr)
     with open(filename, "w") as fd:
         json.dump(data, fd, indent=4)
 
-def append_data(data):
-    current_data = load_today_data()
+def save_today_data(data):
+    save_day_data(data, today_datestr())
+
+def append_data(data, datestr=None):
+    if datestr is None:
+        current_data = load_today_data()
+    else:
+        current_data = load_day_data(datestr)
     current_data.append(data)
-    save_today_data(current_data)
+    if datestr is None:
+        save_today_data(current_data)
+    else:
+        save_day_data(current_data, datestr)
 
 def get_amount(food):
     while True:
@@ -73,7 +85,7 @@ def add_meta(meta_name):
     for food, amount in meta_foods[meta_name].items():
         add_food(food, amount, meta_name)
 
-def add_food(food, amount, desc):
+def add_food(food, amount, desc, datestr=None):
     fat, carb, protein = foods[food]
     append_data({
         "food": food,
@@ -81,7 +93,7 @@ def add_food(food, amount, desc):
         "fat": fat,
         "carb": carb,
         "protein": protein,
-    })
+    }, datestr)
 
 def show_summary(datestr):
     filename = date_filename(datestr)
@@ -220,6 +232,24 @@ def select_food(command):
 
     return food
 
+def is_date_offset(arg):
+    try:
+        return int(arg) < 0
+    except ValueError:
+        return False
+
+def add_food_command(command, datestr):
+    if (food := select_food(command)) is None:
+        return
+    try:
+        amount = get_amount(food)
+    except KeyboardInterrupt:
+        print()
+        print("Cancelled.")
+        return
+    add_food(food, amount, None, datestr)
+    show_summary(datestr)
+
 def main(argv):
     if len(argv) == 1:
         datestr = today_datestr()
@@ -248,26 +278,25 @@ def main(argv):
             datestr = today_datestr()
             show_summary(datestr)
         else:
-            if (food := select_food(command)) is None:
-                return
-            try:
-                amount = get_amount(food)
-            except KeyboardInterrupt:
-                print()
-                print("Cancelled.")
-                return
-            add_food(food, amount, None)
-            datestr = today_datestr()
-            show_summary(datestr)
+            add_food_command(command, today_datestr())
     elif len(argv) == 3:
         command = argv[1]
-        assert command in ("show", "edit")
-        datestr = resolve_datestr(argv[2])
-        if command == "show":
-            show_summary(datestr)
-        elif command == "edit":
-            filename = date_filename(datestr)
-            os.system(f"nvim {filename}")
+        if command in ("show", "edit"):
+            datestr = resolve_datestr(argv[2])
+            if command == "show":
+                show_summary(datestr)
+            elif command == "edit":
+                filename = date_filename(datestr)
+                os.system(f"nvim {filename}")
+        elif is_date_offset(command):
+            datestr = resolve_datestr(command)
+            add_food_command(argv[2], datestr)
+        elif is_date_offset(argv[2]):
+            datestr = resolve_datestr(argv[2])
+            add_food_command(command, datestr)
+        else:
+            print("Invalid arguments.")
+            return -1
     elif len(argv) == 4:
         command = argv[1]
         assert command == "est"
